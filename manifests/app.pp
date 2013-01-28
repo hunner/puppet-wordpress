@@ -56,7 +56,7 @@ class wordpress::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0755',
+    mode    => '0644',
     require => Exec['Extract wordpress'],
   }
   concat::fragment { 'wp-config.php keysalts':
