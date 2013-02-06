@@ -8,8 +8,10 @@ class wordpress::app (
   $db_password,
   $wp_owner,
   $wp_group,
+  $wp_lang,
+  $wp_plugin_dir,
 ) {
-  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group)
+  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir)
 
   ## Resource defaults
   File {
@@ -54,7 +56,7 @@ class wordpress::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0755',
+    mode    => '0644',
     require => Exec['Extract wordpress'],
   }
   concat::fragment { 'wp-config.php keysalts':
