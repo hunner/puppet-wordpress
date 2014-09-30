@@ -35,7 +35,6 @@ class wordpress::app (
     path      => ['/bin','/sbin','/usr/bin','/usr/sbin'],
     cwd       => $install_dir,
     logoutput => 'on_failure',
-    user      => $wp_owner,
     group     => $wp_group,
   }
 
