@@ -99,6 +99,18 @@ define('BLOG_ID_CURRENT_SITE', 1);
 <% if @wp_additional_config != 'DEFAULT' -%>
 <%= scope.function_template([@wp_additional_config]) %>
 <% end -%>
+
+<% if ! @wp_additional_inline_config.empty? %>
+<%   @wp_additional_inline_config.each do |key, value| %>
+<%     if value=='true' or value=='false' or value.class != String %>
+define('<%=key%>', <%=value%>);
+<%     else %>
+define('<%=key%>', '<%=value%>');
+<%     end %>
+<%   end%>
+<% end %>
+
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
