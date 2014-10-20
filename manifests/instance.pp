@@ -51,7 +51,7 @@
 #   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
 #
 # [*wp_additional_inline_config*]
-#   Specifies additional configuration options to include near the end of the wp-config.php file. Default: ''
+#   Specifies a hash of additional configuration options to include near the end of the wp-config.php file. Default: '{}'
 #
 # [*wp_table_prefix*]
 #   Specifies the database table prefix. Default: wp_

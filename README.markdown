@@ -65,6 +65,9 @@ This will set up one or more installations of Wordpress 3.8 on Debian and Redhat
 * `wp_additional_config`<br />
   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
 
+* `wp_additional_inline_config`<br />
+  Specifies a hash of additional configuration options to include near the end of the wp-config.php file. Default: '{}'
+
 * `wp_config_content`<br />
   Specifies the entire content for wp-config.php. This causes many of the other parameters to be ignored and allows an entirely custom config to be passed. It is recommended to use `wp_additional_config` instead of this parameter when possible.
 
@@ -208,5 +211,13 @@ Add custom configuration to wp-config.php:
 ```puppet
 class { 'wordpress':
   wp_additional_config => 'foo/wp-config-extra.php.erb',
+}
+```
+
+Add inline configuration to wp-config.php:
+
+```puppet
+class { 'wordpress':
+  wp_additional_inline_config => {'FOO' => 'bar', 'BAZ' => 1234, 'WP_CACHE' => true},
 }
 ```
