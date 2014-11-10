@@ -51,6 +51,9 @@
 # [*wp_additional_config*]
 #   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
 #
+# [*wp_config_mode*]
+#   Specifies the file permissions of wp-config.php. Default: 0755
+#
 # [*wp_table_prefix*]
 #   Specifies the database table prefix. Default: wp_
 #
@@ -84,6 +87,7 @@ define wordpress::instance (
   $wp_group             = '0',
   $wp_lang              = '',
   $wp_config_content    = undef,
+  $wp_config_mode       = '0755',
   $wp_plugin_dir        = 'DEFAULT',
   $wp_additional_config = 'DEFAULT',
   $wp_table_prefix      = 'wp_',
@@ -107,6 +111,7 @@ define wordpress::instance (
     wp_group             => $wp_group,
     wp_lang              => $wp_lang,
     wp_config_content    => $wp_config_content,
+    wp_config_mode       => $wp_config_mode,
     wp_plugin_dir        => $wp_plugin_dir,
     wp_additional_config => $wp_additional_config,
     wp_table_prefix      => $wp_table_prefix,

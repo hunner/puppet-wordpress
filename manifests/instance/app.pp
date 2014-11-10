@@ -10,6 +10,7 @@ define wordpress::instance::app (
   $wp_group,
   $wp_lang,
   $wp_config_content,
+  $wp_config_mode,
   $wp_plugin_dir,
   $wp_additional_config,
   $wp_table_prefix,
@@ -89,7 +90,7 @@ define wordpress::instance::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0755',
+    mode    => $wp_config_mode,
     require => Exec["Extract wordpress ${install_dir}"],
   }
   if $wp_config_content {
