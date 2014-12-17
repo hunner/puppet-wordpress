@@ -63,8 +63,14 @@
 # [*wp_multisite*]
 #   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
 #
+# [*wp_subdomain_install*]
+#   Specifies the `SUBDOMAIN_INSTALL` value that will be used when configuring multisite. This states whether blogs created will be blogname.domain
+#
 # [*wp_site_domain*]
 #   Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
+#
+# [*wp_path_current_site*]
+#   Specifies the `PATH_CURRENT_SITE` value that will be used when configuring multisite. If all sites are to be under a url location that is not t
 #
 # === Requires
 #
@@ -90,7 +96,9 @@ define wordpress::instance (
   $wp_proxy_host        = '',
   $wp_proxy_port        = '',
   $wp_multisite         = false,
+  $wp_subdomain_install = false,
   $wp_site_domain       = '',
+  $wp_path_current_site = '/',
   $wp_debug             = false,
   $wp_debug_log         = false,
   $wp_debug_display     = false,
@@ -113,7 +121,9 @@ define wordpress::instance (
     wp_proxy_host        => $wp_proxy_host,
     wp_proxy_port        => $wp_proxy_port,
     wp_multisite         => $wp_multisite,
+    wp_subdomain_install => $wp_subdomain_install,
     wp_site_domain       => $wp_site_domain,
+    wp_path_current_site => $wp_path_current_site,
     wp_debug             => $wp_debug,
     wp_debug_log         => $wp_debug_log,
     wp_debug_display     => $wp_debug_display,
