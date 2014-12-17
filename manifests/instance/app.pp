@@ -16,7 +16,9 @@ define wordpress::instance::app (
   $wp_proxy_host,
   $wp_proxy_port,
   $wp_multisite,
+  $wp_subdomain_install,
   $wp_site_domain,
+  $wp_path_current_site,
   $wp_debug,
   $wp_debug_log,
   $wp_debug_display,
@@ -130,7 +132,9 @@ define wordpress::instance::app (
     # - $wp_proxy_host
     # - $wp_proxy_port
     # - $wp_multisite
+    # - $wp_subdomain_install
     # - $wp_site_domain
+    # - $wp_path_current_site
     # - $wp_additional_config
     # - $wp_debug
     # - $wp_debug_log
