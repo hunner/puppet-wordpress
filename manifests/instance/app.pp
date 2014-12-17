@@ -20,6 +20,7 @@ define wordpress::instance::app (
   $wp_debug,
   $wp_debug_log,
   $wp_debug_display,
+  $wp_dir_mode = undef
 ) {
   validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir,$wp_additional_config,$wp_table_prefix,$wp_proxy_host,$wp_proxy_port,$wp_site_domain)
   validate_bool($wp_multisite, $wp_debug, $wp_debug_log, $wp_debug_display)
@@ -40,6 +41,15 @@ define wordpress::instance::app (
   if $wp_debug_display and ! $wp_debug {
     fail('wordpress class requires `wp_debug` parameter to be true, when `wp_debug_display` is true')
   }
+  
+  if $wp_dir_mode == undef {
+    $m_wp_dir_mode = "0755"
+  }
+  else {
+    $m_wp_dir_mode = $wp_dir_mode
+  }
+  validate_re($wp_dir_mode, '^\d{4}$', "${wp_dir_mode} is not valid. It must be 4 digits (0755 by default).")
+
 
   ## Resource defaults
   File {
@@ -96,7 +106,7 @@ define wordpress::instance::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0755',
+    mode    => $m_wp_dir_mode,
     require => Exec["Extract wordpress ${install_dir}"],
   }
   if $wp_config_content {
