@@ -63,7 +63,7 @@ This will set up one or more installations of Wordpress 3.8 on Debian and Redhat
   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 
 * `wp_additional_config`<br />
-  Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
+  Specifies a template to include near the end of the wp-config.php file to add additional options. As PHP does not allow Defines to be redefined this can not be used to redefine values already defined. Default: ''
 
 * `wp_config_content`<br />
   Specifies the entire content for wp-config.php. This causes many of the other parameters to be ignored and allows an entirely custom config to be passed. It is recommended to use `wp_additional_config` instead of this parameter when possible.
@@ -80,8 +80,14 @@ This will set up one or more installations of Wordpress 3.8 on Debian and Redhat
 * `wp_multisite`<br />
   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
 
+* `wp_subdomain_install`<br />
+  Specifies the `SUBDOMAIN_INSTALL` value that will be used when configuring multisite. This states whether blogs created will be blogname.domain.com. Default: `false`
+
 * `wp_site_domain`<br />
-  Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance.  Default: ''
+  Specifies the `DOMAIN_CURRENT_SITE` value that will be used when configuring multisite. Typically this is the address of the main wordpress instance. Default: ''
+
+* `wp_path_current_site`<br />
+  Specifies the `PATH_CURRENT_SITE` value that will be used when configuring multisite. If all sites are to be under a url location that is not the toplevel / set this value /path/. wp-admin will then be at /path/wp-admin and additional blogs will be under /path/blogname. Default: '/'
 
 * `wp_debug`<br />
   Specifies the `WP_DEBUG` value that will control debugging. This must be true if you use the next two debug extensions. Default: 'false'
