@@ -48,7 +48,7 @@ define wordpress::instance::app (
   else {
     $m_wp_dir_mode = $wp_dir_mode
   }
-  validate_re($wp_dir_mode, '^\d{4}$', "${wp_dir_mode} is not valid. It must be 4 digits (0755 by default).")
+  validate_re($m_wp_dir_mode, '^\d{4}$', "${m_wp_dir_mode} is not valid. It must be 4 digits (0755 by default).")
 
 
   ## Resource defaults
