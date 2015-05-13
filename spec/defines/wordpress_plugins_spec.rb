@@ -11,28 +11,22 @@ describe 'wordpress::wp_plugin' do
     }
   end
 
-  context 'supported operating systems' do
-    on_supported_os.each do |os, facts|
-      context "on #{os}" do
-        context "With default parameters" do
-          let(:title) { 'custom-content-shortcode'}
-          let :params do
-            default_params
-          end
+  context "With default parameters" do
+    let(:title) { 'custom-content-shortcode'}
+    let :params do
+      default_params
+    end
 
-          it do
-            should contain_exec('download-wordpress-plugin-custom-content-shortcode').with({
-              :command => "/usr/bin/wget -nc https://downloads.wordpress.org/plugin/custom-content-shortcode.2.1.3.zip"
-            })
-          end
+    it do
+      should contain_exec('download-wordpress-plugin-custom-content-shortcode').with({
+        :command => "/usr/bin/wget -nc https://downloads.wordpress.org/plugin/custom-content-shortcode.2.1.3.zip"
+      })
+    end
 
-          it do
-            should contain_exec('extract-wordpress-plugin-custom-content-shortcode').with({
-              :command => "unzip ./custom-content-shortcode.2.1.3.zip"
-            })
-          end
-        end
-      end
+    it do
+      should contain_exec('extract-wordpress-plugin-custom-content-shortcode').with({
+        :command => "unzip ./custom-content-shortcode.2.1.3.zip"
+      })
     end
   end
 end

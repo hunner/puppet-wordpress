@@ -11,32 +11,26 @@ describe 'wordpress::wp_theme' do
     }
   end
 
-  context 'supported operating systems' do
-    on_supported_os.each do |os, facts|
-      context "on #{os}" do
-        context "With default parameters" do
-          let(:title) { 'breakdown'}
-          let :params do
-            default_params
-          end
+  context "With default parameters" do
+    let(:title) { 'breakdown'}
+    let :params do
+      default_params
+    end
 
-          it do
-            should contain_file('/opt/wordpress/wp-content/themes/breakdown')
-          end
+    it do
+      should contain_file('/opt/wordpress/wp-content/themes/breakdown')
+    end
 
-          it do
-            should contain_exec('download-wordpress-theme-breakdown').with({
-              :command => "/usr/bin/curl -o breakdown.tar.gz -L http://gitlab.csedigital.com/dyoung/ajc-breakdown/repository/archive.tar.gz?ref=master"
-            })
-          end
+    it do
+      should contain_exec('download-wordpress-theme-breakdown').with({
+        :command => "/usr/bin/curl -o breakdown.tar.gz -L http://gitlab.csedigital.com/dyoung/ajc-breakdown/repository/archive.tar.gz?ref=master"
+      })
+    end
 
-          it do
-            should contain_exec('extract-wordpress-theme-breakdown').with({
-              :command => "tar --strip-components=0 -xf ./breakdown.tar.gz"
-            })
-          end
-        end
-      end
+    it do
+      should contain_exec('extract-wordpress-theme-breakdown').with({
+        :command => "tar --strip-components=0 -xf ./breakdown.tar.gz"
+      })
     end
   end
 end
