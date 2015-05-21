@@ -77,6 +77,12 @@
 # [*wp_debug_display*]
 #   Specifies the `WP_DEBUG_DISPLAY` value that extends debugging to cause debug messages to be shown inline, in HTML pages. Default: 'false'
 #
+# [*wp_mode*]
+#   Specifies the mode of files and directories where this is set explicitly.
+#
+# [*wp_config_mode*]
+#   Specifies the mode of wp-config file.
+#
 # === Requires
 #
 # === Examples
@@ -105,6 +111,8 @@ class wordpress (
   $wp_debug             = false,
   $wp_debug_log         = false,
   $wp_debug_display     = false,
+  $wp_config_mode       = '0640',
+  $wp_mode              = '0644'
 ) {
   wordpress::instance { $install_dir:
     install_dir          => $install_dir,
@@ -130,5 +138,7 @@ class wordpress (
     wp_debug             => $wp_debug,
     wp_debug_log         => $wp_debug_log,
     wp_debug_display     => $wp_debug_display,
+    wp_config_mode       => $wp_config_mode,
+    wp_mode              => $wp_mode
   }
 }
