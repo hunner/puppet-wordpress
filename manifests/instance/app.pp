@@ -62,6 +62,13 @@ define wordpress::instance::app (
   } else {
     notice("Warning: cannot manage the permissions of ${install_dir}, as another resource (perhaps apache::vhost?) is managing it.")
   }
+  
+  ## tar.gz. file name lang-aware
+  if $wp_lang {
+    $install_file_name = "wordpress-${version}-${wp_lang}.tar.gz"
+  } else {
+    $install_file_name = "wordpress-${version}.tar.gz"
+  }
 
   ## Download and extract
 
@@ -70,14 +77,14 @@ define wordpress::instance::app (
   }
 
   exec { "Download wordpress ${install_url}/wordpress-${version}.tar.gz to ${install_dir}":
-    command => "wget ${wget_opts} ${install_url}/wordpress-${version}.tar.gz",
-    creates => "${install_dir}/wordpress-${version}.tar.gz",
+    command => "wget ${wget_opts} ${install_url}/${install_file_name}",
+    creates => "${install_dir}/${install_file_name}",
     require => File[$install_dir],
     user    => $wp_owner,
     group   => $wp_group,
   }
   -> exec { "Extract wordpress ${install_dir}":
-    command => "tar zxvf ./wordpress-${version}.tar.gz --strip-components=1",
+    command => "tar zxvf ./${install_file_name} --strip-components=1",
     creates => "${install_dir}/index.php",
     user    => $wp_owner,
     group   => $wp_group,
@@ -94,7 +101,7 @@ define wordpress::instance::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0755',
+    mode    => '0640',
     require => Exec["Extract wordpress ${install_dir}"],
   }
   if $wp_config_content {
