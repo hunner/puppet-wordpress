@@ -16,13 +16,15 @@ define wordpress::instance::app (
   $wp_proxy_host,
   $wp_proxy_port,
   $wp_multisite,
+  $wp_subdomain_install,
   $wp_site_domain,
+  $wp_path_current_site,
   $wp_debug,
   $wp_debug_log,
   $wp_debug_display,
 ) {
-  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir,$wp_additional_config,$wp_table_prefix,$wp_proxy_host,$wp_proxy_port,$wp_site_domain)
-  validate_bool($wp_multisite, $wp_debug, $wp_debug_log, $wp_debug_display)
+  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir,$wp_additional_config,$wp_table_prefix,$wp_proxy_host,$wp_proxy_port,$wp_site_domain,$wp_path_current_site)
+  validate_bool($wp_multisite, $wp_subdomain_install, $wp_debug, $wp_debug_log, $wp_debug_display)
   validate_absolute_path($install_dir)
 
   if $wp_config_content and ($wp_lang or $wp_debug or $wp_debug_log or $wp_debug_display or $wp_proxy_host or $wp_proxy_port or $wp_multisite or $wp_site_domain) {
@@ -41,13 +43,6 @@ define wordpress::instance::app (
     fail('wordpress class requires `wp_debug` parameter to be true, when `wp_debug_display` is true')
   }
 
-  if $wp_proxy_host and !empty($wp_proxy_host) {
-    $exec_environment = [
-      "http_proxy=http://${wp_proxy_host}:${wp_proxy_port}",
-      "https_proxy=http://${wp_proxy_host}:${wp_proxy_port}",
-    ]
-  }
-
   ## Resource defaults
   File {
     owner  => $wp_owner,
@@ -55,10 +50,9 @@ define wordpress::instance::app (
     mode   => '0644',
   }
   Exec {
-    path        => ['/bin','/sbin','/usr/bin','/usr/sbin'],
-    cwd         => $install_dir,
-    environment => $exec_environment,
-    logoutput   => 'on_failure',
+    path      => ['/bin','/sbin','/usr/bin','/usr/sbin'],
+    cwd       => $install_dir,
+    logoutput => 'on_failure',
   }
 
   ## Installation directory
@@ -70,9 +64,9 @@ define wordpress::instance::app (
   } else {
     notice("Warning: cannot manage the permissions of ${install_dir}, as another resource (perhaps apache::vhost?) is managing it.")
   }
-
+  
   ## tar.gz. file name lang-aware
-  if $wp_lang and !empty($wp_lang) {
+  if $wp_lang {
     $install_file_name = "wordpress-${version}-${wp_lang}.tar.gz"
   } else {
     $install_file_name = "wordpress-${version}.tar.gz"
@@ -80,7 +74,7 @@ define wordpress::instance::app (
 
   ## Download and extract
   exec { "Download wordpress ${install_url}/wordpress-${version}.tar.gz to ${install_dir}":
-    command => "curl -L -O ${install_url}/${install_file_name}",
+    command => "wget ${install_url}/${install_file_name}",
     creates => "${install_dir}/${install_file_name}",
     require => File[$install_dir],
     user    => $wp_owner,
@@ -104,7 +98,7 @@ define wordpress::instance::app (
   concat { "${install_dir}/wp-config.php":
     owner   => $wp_owner,
     group   => $wp_group,
-    mode    => '0640',
+    mode    => '0755',
     require => Exec["Extract wordpress ${install_dir}"],
   }
   if $wp_config_content {
@@ -138,7 +132,9 @@ define wordpress::instance::app (
     # - $wp_proxy_host
     # - $wp_proxy_port
     # - $wp_multisite
+    # - $wp_subdomain_install
     # - $wp_site_domain
+    # - $wp_path_current_site
     # - $wp_additional_config
     # - $wp_debug
     # - $wp_debug_log
