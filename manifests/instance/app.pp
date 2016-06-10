@@ -89,8 +89,8 @@ define wordpress::instance::app (
   ~> exec { "Change ownership ${install_dir}":
     command     => "chown -R ${wp_owner}:${wp_group} ${install_dir}",
     refreshonly => true,
-    user        => $wp_owner,
-    group       => $wp_group,
+    user        => $tar_owner,
+    group       => $tar_group,
   }
 
   ## Configure wordpress
