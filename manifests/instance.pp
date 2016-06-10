@@ -89,7 +89,7 @@ define wordpress::instance (
   $db_password          = 'password',
   $wp_owner             = 'root',
   $wp_group             = '0',
-  $tar_owner            = 'root'
+  $tar_owner            = 'root',
   $tar_group            = '0',
   $wp_lang              = '',
   $wp_config_content    = undef,
