@@ -43,9 +43,14 @@
 #   Specifies the group of the wordpress files. Default: 0 (*BSD/Darwin
 #   compatible GID)
 #
+# [*tar_owner*]
+#   Specifies the owner of the wordpress tarball to download and extract. Default: root
+#
+# [*tar_group*]
+#   Specifies the group of the wordpress tarball to download and extract. Default: 0 (*BSD/Darwin
+#   
 # [*wp_lang*]
 #   WordPress Localized Language. Default: ''
-#
 #
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
@@ -93,6 +98,8 @@ class wordpress (
   $db_password          = 'password',
   $wp_owner             = 'root',
   $wp_group             = '0',
+  $tar_owner            = 'root'
+  $tar_group            = '0',
   $wp_lang              = '',
   $wp_config_content    = undef,
   $wp_plugin_dir        = 'DEFAULT',
@@ -118,6 +125,8 @@ class wordpress (
     db_password          => $db_password,
     wp_owner             => $wp_owner,
     wp_group             => $wp_group,
+    tar_owner            => $tar_owner,
+    tar_group            => $tar_group,    
     wp_lang              => $wp_lang,
     wp_config_content    => $wp_config_content,
     wp_plugin_dir        => $wp_plugin_dir,
