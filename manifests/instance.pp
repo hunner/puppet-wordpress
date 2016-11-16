@@ -82,7 +82,7 @@ define wordpress::instance (
   $db_password          = 'password',
   $wp_owner             = 'root',
   $wp_group             = '0',
-  $wp_lang              = '',
+  $wp_lang              = undef,
   $wp_config_content    = undef,
   $wp_plugin_dir        = 'DEFAULT',
   $wp_additional_config = 'DEFAULT',
