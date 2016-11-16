@@ -74,7 +74,7 @@ define wordpress::instance (
   $db_name,
   $db_user,
   $install_dir          = $title,
-  $install_url          = 'http://wordpress.org',
+  $install_url          = 'https://wordpress.org',
   $version              = '3.8',
   $create_db            = true,
   $create_db_user       = true,
