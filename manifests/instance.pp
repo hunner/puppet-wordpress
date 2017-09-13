@@ -44,12 +44,14 @@
 # [*wp_lang*]
 #   WordPress Localized Language. Default: ''
 #
-#
 # [*wp_plugin_dir*]
 #   WordPress Plugin Directory. Full path, no trailing slash. Default: WordPress Default
 #
 # [*wp_additional_config*]
 #   Specifies a template to include near the end of the wp-config.php file to add additional options. Default: ''
+#
+# [*wp_additional_inline_config*]
+#   Specifies a hash of additional configuration options to include near the end of the wp-config.php file. Default: '{}'
 #
 # [*wp_table_prefix*]
 #   Specifies the database table prefix. Default: wp_
@@ -73,50 +75,52 @@
 define wordpress::instance (
   $db_name,
   $db_user,
-  $install_dir          = $title,
-  $install_url          = 'http://wordpress.org',
-  $version              = '3.8',
-  $create_db            = true,
-  $create_db_user       = true,
-  $db_host              = 'localhost',
-  $db_password          = 'password',
-  $wp_owner             = 'root',
-  $wp_group             = '0',
-  $wp_lang              = '',
-  $wp_config_content    = undef,
-  $wp_plugin_dir        = 'DEFAULT',
-  $wp_additional_config = 'DEFAULT',
-  $wp_table_prefix      = 'wp_',
-  $wp_proxy_host        = '',
-  $wp_proxy_port        = '',
-  $wp_multisite         = false,
-  $wp_site_domain       = '',
-  $wp_debug             = false,
-  $wp_debug_log         = false,
-  $wp_debug_display     = false,
+  $install_dir                  = $title,
+  $install_url                  = 'http://wordpress.org',
+  $version                      = '3.8',
+  $create_db                    = true,
+  $create_db_user               = true,
+  $db_host                      = 'localhost',
+  $db_password                  = 'password',
+  $wp_owner                     = 'root',
+  $wp_group                     = '0',
+  $wp_lang                      = '',
+  $wp_config_content            = undef,
+  $wp_plugin_dir                = 'DEFAULT',
+  $wp_additional_config         = 'DEFAULT',
+  $wp_additional_inline_config  = {},
+  $wp_table_prefix              = 'wp_',
+  $wp_proxy_host                = '',
+  $wp_proxy_port                = '',
+  $wp_multisite                 = false,
+  $wp_site_domain               = '',
+  $wp_debug                     = false,
+  $wp_debug_log                 = false,
+  $wp_debug_display             = false,
 ) {
   wordpress::instance::app { $install_dir:
-    install_dir          => $install_dir,
-    install_url          => $install_url,
-    version              => $version,
-    db_name              => $db_name,
-    db_host              => $db_host,
-    db_user              => $db_user,
-    db_password          => $db_password,
-    wp_owner             => $wp_owner,
-    wp_group             => $wp_group,
-    wp_lang              => $wp_lang,
-    wp_config_content    => $wp_config_content,
-    wp_plugin_dir        => $wp_plugin_dir,
-    wp_additional_config => $wp_additional_config,
-    wp_table_prefix      => $wp_table_prefix,
-    wp_proxy_host        => $wp_proxy_host,
-    wp_proxy_port        => $wp_proxy_port,
-    wp_multisite         => $wp_multisite,
-    wp_site_domain       => $wp_site_domain,
-    wp_debug             => $wp_debug,
-    wp_debug_log         => $wp_debug_log,
-    wp_debug_display     => $wp_debug_display,
+    install_dir                 => $install_dir,
+    install_url                 => $install_url,
+    version                     => $version,
+    db_name                     => $db_name,
+    db_host                     => $db_host,
+    db_user                     => $db_user,
+    db_password                 => $db_password,
+    wp_owner                    => $wp_owner,
+    wp_group                    => $wp_group,
+    wp_lang                     => $wp_lang,
+    wp_config_content           => $wp_config_content,
+    wp_plugin_dir               => $wp_plugin_dir,
+    wp_additional_config        => $wp_additional_config,
+    wp_additional_inline_config => $wp_additional_inline_config,
+    wp_table_prefix             => $wp_table_prefix,
+    wp_proxy_host               => $wp_proxy_host,
+    wp_proxy_port               => $wp_proxy_port,
+    wp_multisite                => $wp_multisite,
+    wp_site_domain              => $wp_site_domain,
+    wp_debug                    => $wp_debug,
+    wp_debug_log                => $wp_debug_log,
+    wp_debug_display            => $wp_debug_display,
   }
 
   wordpress::instance::db { "${db_host}/${db_name}":
