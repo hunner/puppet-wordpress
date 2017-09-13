@@ -79,7 +79,7 @@ define wordpress::instance::app (
     group   => $wp_group,
   }
   -> exec { "Extract wordpress ${install_dir}":
-    command => "tar zxvf ./${install_file_name} --strip-components=1",
+    command => "tar zxvf ./${install_file_name} --dereference --strip-components=1",
     creates => "${install_dir}/index.php",
     user    => $wp_owner,
     group   => $wp_group,
