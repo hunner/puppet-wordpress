@@ -92,6 +92,9 @@ This will set up one or more installations of Wordpress 3.8 on Debian and Redhat
 * `wp_debug_display`<br />
   Specifies the `WP_DEBUG_DISPLAY` value that extends debugging to cause debug messages to be shown inline, in HTML pages. Default: 'false'
 
+* `wp_cache`<br />
+  Specifies whether to enable caching in Wordpress. Required for some caching plugins. Default: 'false'
+
 ### Define wordpress::instance
 
 * The parameters for `wordpress::instance` is exactly the same as the class `wordpress` except as noted below.

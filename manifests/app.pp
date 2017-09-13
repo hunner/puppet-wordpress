@@ -20,6 +20,7 @@ class wordpress::app (
   $wp_debug,
   $wp_debug_log,
   $wp_debug_display,
+  $wp_cache,
 ) {
   wordpress::instance::app { $install_dir:
     install_dir          => $install_dir,
@@ -42,5 +43,6 @@ class wordpress::app (
     wp_debug             => $wp_debug,
     wp_debug_log         => $wp_debug_log,
     wp_debug_display     => $wp_debug_display,
+    wp_cache             => $wp_cache,
   }
 }

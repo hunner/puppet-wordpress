@@ -94,6 +94,7 @@ define wordpress::instance (
   $wp_debug             = false,
   $wp_debug_log         = false,
   $wp_debug_display     = false,
+  $wp_cache             = false,
 ) {
   wordpress::instance::app { $install_dir:
     install_dir          => $install_dir,
@@ -117,6 +118,7 @@ define wordpress::instance (
     wp_debug             => $wp_debug,
     wp_debug_log         => $wp_debug_log,
     wp_debug_display     => $wp_debug_display,
+    wp_cache             => $wp_cache,
   }
 
   wordpress::instance::db { "${db_host}/${db_name}":
