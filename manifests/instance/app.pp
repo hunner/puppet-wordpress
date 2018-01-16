@@ -47,7 +47,7 @@ define wordpress::instance::app (
   File {
     owner  => $wp_owner,
     group  => $wp_group,
-    mode   => '0644',
+    mode   => '0664',
   }
   Exec {
     path      => ['/bin','/sbin','/usr/bin','/usr/sbin'],
