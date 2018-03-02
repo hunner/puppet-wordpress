@@ -72,8 +72,13 @@ define wordpress::instance::app (
   }
 
   ## Download and extract
+
+  if (wp_proxy_host) {
+    $wget_opts="-e use_proxy=yes -e https_proxy=${wp_proxy_host}:${wp_proxy_port}"
+  }
+
   exec { "Download wordpress ${install_url}/wordpress-${version}.tar.gz to ${install_dir}":
-    command => "wget ${install_url}/${install_file_name}",
+    command => "wget ${wget_opts} ${install_url}/${install_file_name}",
     creates => "${install_dir}/${install_file_name}",
     require => File[$install_dir],
     user    => $wp_owner,
