@@ -8,6 +8,8 @@ define wordpress::instance::app (
   $db_password,
   $wp_owner,
   $wp_group,
+  $tar_owner,
+  $tar_group,
   $wp_lang,
   $wp_config_content,
   $wp_plugin_dir,
@@ -76,20 +78,20 @@ define wordpress::instance::app (
     command => "wget ${install_url}/${install_file_name}",
     creates => "${install_dir}/${install_file_name}",
     require => File[$install_dir],
-    user    => $wp_owner,
-    group   => $wp_group,
+    user    => $tar_owner,
+    group   => $tar_group,
   }
   -> exec { "Extract wordpress ${install_dir}":
     command => "tar zxvf ./${install_file_name} --strip-components=1",
     creates => "${install_dir}/index.php",
-    user    => $wp_owner,
-    group   => $wp_group,
+    user    => $tar_owner,
+    group   => $tar_group,
   }
   ~> exec { "Change ownership ${install_dir}":
     command     => "chown -R ${wp_owner}:${wp_group} ${install_dir}",
     refreshonly => true,
-    user        => $wp_owner,
-    group       => $wp_group,
+    user        => $tar_owner,
+    group       => $tar_group,
   }
 
   ## Configure wordpress

@@ -41,6 +41,13 @@
 #   Specifies the group of the wordpress files. Default: 0 (*BSD/Darwin
 #   compatible GID)
 #
+# [*tar_owner*]
+#   Specifies the owner of the wordpress tarball to download and extract. Default: root
+#
+# [*tar_group*]
+#   Specifies the group of the wordpress tarball to download and extract. Default: 0 (*BSD/Darwin
+#   compatible GID)
+#
 # [*wp_lang*]
 #   WordPress Localized Language. Default: ''
 #
@@ -85,6 +92,8 @@ define wordpress::instance (
   $db_password          = 'password',
   $wp_owner             = 'root',
   $wp_group             = '0',
+  $tar_owner            = 'root',
+  $tar_group            = '0',
   $wp_lang              = '',
   $wp_config_content    = undef,
   $wp_plugin_dir        = 'DEFAULT',
@@ -109,6 +118,8 @@ define wordpress::instance (
     db_password          => $db_password,
     wp_owner             => $wp_owner,
     wp_group             => $wp_group,
+    tar_owner            => $tar_owner,
+    tar_group            => $tar_group,
     wp_lang              => $wp_lang,
     wp_config_content    => $wp_config_content,
     wp_plugin_dir        => $wp_plugin_dir,
@@ -124,12 +135,12 @@ define wordpress::instance (
     wp_debug_display     => $wp_debug_display,
   }
 
-  wordpress::instance::db { "${db_host}/${db_name}":
+   wordpress::instance::db { "${db_host}/${db_name}":
     create_db      => $create_db,
     create_db_user => $create_db_user,
     db_name        => $db_name,
     db_host        => $db_host,
     db_user        => $db_user,
     db_password    => $db_password,
-  }
+  } 
 }
