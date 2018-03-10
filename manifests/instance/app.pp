@@ -17,13 +17,15 @@ define wordpress::instance::app (
   $wp_proxy_port,
   $wp_site_url,
   $wp_multisite,
+  $wp_subdomain_install,
   $wp_site_domain,
+  $wp_path_current_site,
   $wp_debug,
   $wp_debug_log,
   $wp_debug_display,
 ) {
-  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir,$wp_additional_config,$wp_table_prefix,$wp_proxy_host,$wp_proxy_port,$wp_site_domain)
-  validate_bool($wp_multisite, $wp_debug, $wp_debug_log, $wp_debug_display)
+  validate_string($install_dir,$install_url,$version,$db_name,$db_host,$db_user,$db_password,$wp_owner,$wp_group, $wp_lang, $wp_plugin_dir,$wp_additional_config,$wp_table_prefix,$wp_proxy_host,$wp_proxy_port,$wp_site_domain,$wp_path_current_site)
+  validate_bool($wp_multisite, $wp_subdomain_install, $wp_debug, $wp_debug_log, $wp_debug_display)
   validate_absolute_path($install_dir)
 
   if $wp_config_content and ($wp_lang or $wp_debug or $wp_debug_log or $wp_debug_display or $wp_proxy_host or $wp_proxy_port or $wp_multisite or $wp_site_domain) {
@@ -46,7 +48,7 @@ define wordpress::instance::app (
   File {
     owner  => $wp_owner,
     group  => $wp_group,
-    mode   => '0644',
+    mode   => '0664',
   }
   Exec {
     path      => ['/bin','/sbin','/usr/bin','/usr/sbin'],
@@ -132,7 +134,9 @@ define wordpress::instance::app (
     # - $wp_proxy_port
     # - $wp_site_url
     # - $wp_multisite
+    # - $wp_subdomain_install
     # - $wp_site_domain
+    # - $wp_path_current_site
     # - $wp_additional_config
     # - $wp_debug
     # - $wp_debug_log
