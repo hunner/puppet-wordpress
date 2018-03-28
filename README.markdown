@@ -99,7 +99,10 @@ This will set up one or more installations of Wordpress 4.8.1 on Debian and Redh
   Specifies the port to use with the proxy host.  Default: ''
 
 * `wp_site_url`<br />
-  If your WordPress server is behind a proxy, you might need to set the WP_SITEURL with this parameter.  Default: 'undef'
+  If your WordPress server is behind a proxy, you wish to override the value in the wp_options table or reduce the number of database calls when loading, you might need to set the WP_SITEURL with this parameter.  Default: 'undef'
+
+* `wp_home`<br />
+  If you wish to override the value in the wp_options table or reduce the number of database calls when loading, you might need to set the WP_HOME with this parameter.  Default: 'undef'
 
 * `wp_multisite`<br />
   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
