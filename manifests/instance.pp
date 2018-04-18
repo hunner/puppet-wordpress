@@ -84,7 +84,10 @@
 #   Specifies the port to use with the proxy host.  Default: ''
 #
 # [*wp_site_url*]
-#  If your WordPress server is behind a proxy, you might need to set the WP_SITEURL with this parameter.  Default: `undef`
+#  If your WordPress server is behind a proxy, you wish to override the value in the wp_options table or reduce the number of database calls when loading, you might need to set the WP_SITEURL with this parameter.  Default: `undef`
+#
+# [*wp_home*]
+#  If you wish to override the value in the wp_options table or reduce the number of database calls when loading, you might need to set the WP_HOME with this parameter.  Default: `undef`
 #
 # [*wp_multisite*]
 #   Specifies whether to enable the multisite feature. Requires `wp_site_domain` to also be passed. Default: `false`
@@ -123,6 +126,7 @@ define wordpress::instance (
   $wp_proxy_host        = '',
   $wp_proxy_port        = '',
   $wp_site_url          = undef,
+  $wp_home              = undef,
   $wp_multisite         = false,
   $wp_site_domain       = '',
   $wp_debug             = false,
@@ -158,6 +162,7 @@ define wordpress::instance (
     wp_proxy_host        => $wp_proxy_host,
     wp_proxy_port        => $wp_proxy_port,
     wp_site_url          => $wp_site_url,
+    wp_home              => $wp_home,
     wp_multisite         => $wp_multisite,
     wp_site_domain       => $wp_site_domain,
     wp_debug             => $wp_debug,

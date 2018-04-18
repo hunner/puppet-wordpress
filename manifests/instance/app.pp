@@ -23,6 +23,7 @@ define wordpress::instance::app (
   String $wp_proxy_host,
   String $wp_proxy_port,
   Optional[String] $wp_site_url,
+  Optional[String] $wp_home,
   Boolean $wp_multisite,
   String $wp_site_domain,
   Boolean $wp_debug,
@@ -154,6 +155,7 @@ define wordpress::instance::app (
     # - $wp_proxy_host
     # - $wp_proxy_port
     # - $wp_site_url
+    # - $wp_home
     # - $wp_multisite
     # - $wp_site_domain
     # - $wp_additional_config
